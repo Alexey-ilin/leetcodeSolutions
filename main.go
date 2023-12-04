@@ -1,7 +1,12 @@
 package leetcodeSols
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func M() {
-	fmt.Println("Hello")
+	if n, err := strconv.Atoi("123"); err != nil {
+		fmt.Println(n)
+	}
 }

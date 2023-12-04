@@ -5,6 +5,8 @@ import (
 	"testing"
 
 	"github.com/Alexey-ilin/leetcodeSols/solutions"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 // unit tests for leetcode solutions
@@ -343,6 +345,189 @@ func TestMinFallingPathSum(t *testing.T) {
 			res := solutions.MinFallingPathSum(tc.input)
 			if res != tc.output {
 				t.Errorf("\n MinFallingPathSum(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestTriangle(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  [][]int
+		output int
+	}{
+		{name: "height 4 triangle", input: [][]int{{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}}, output: 11},
+		{name: "height 1 triangle", input: [][]int{{-10}}, output: -10},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MinimumTotalTriangle(tc.input)
+			if res != tc.output {
+				t.Errorf("\n Triangle(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestUniquePathsWithObstacles(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  [][]int
+		output int
+	}{
+		{name: "3x3 grid", input: [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, output: 2},
+		{name: "2x2 grid", input: [][]int{{0, 1}, {0, 0}}, output: 1},
+		{name: "2x2 grid (no paths)", input: [][]int{{0, 1}, {1, 0}}, output: 0},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.UniquePathsWithObstacles(tc.input)
+			if res != tc.output {
+				t.Errorf("\n UniquePathsWithObstacles(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestMinumumPathSum(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  [][]int
+		output int
+	}{
+		{name: "3x3 grid", input: [][]int{{1, 3, 1}, {1, 5, 1}, {4, 2, 1}}, output: 7},
+		{name: "2x3 grid", input: [][]int{{1, 2, 3}, {4, 5, 6}}, output: 12},
+		{name: "3x3 grid (0-s path)", input: [][]int{{0, 1, 2}, {0, 3, 4}, {0, 0, 0}}, output: 0},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MinPathSum(tc.input)
+			if res != tc.output {
+				t.Errorf("\n MinimumPathSum(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestMinCostClimbingStairs(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  []int
+		output int
+	}{
+		{name: "3 step stairs", input: []int{10, 15, 20}, output: 15},
+		{name: "10 step stairs", input: []int{1, 100, 1, 1, 1, 100, 1, 1, 100, 1}, output: 6},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MinCostClimbingStairs(tc.input)
+			if res != tc.output {
+				t.Errorf("\n MinCostClimbingStairs(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestClimbingStairs(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  int
+		output int
+	}{
+		{name: "2 step stairs", input: 2, output: 2},
+		{name: "3 step stairs", input: 3, output: 3},
+		{name: "45 step stairs", input: 45, output: 1836311903},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.ClimbStairs(tc.input)
+			if res != tc.output {
+				t.Errorf("\n ClimbStairs(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestMinProcessingTime(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name          string
+		processorTime []int
+		tasks         []int
+		output        int
+	}{
+		{name: "test 1", processorTime: []int{8, 10}, tasks: []int{2, 2, 3, 1, 8, 7, 4, 5}, output: 16},
+		{name: "test 2", processorTime: []int{10, 20}, tasks: []int{2, 3, 1, 2, 5, 8, 4, 3}, output: 23},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MinProcessingTime(tc.processorTime, tc.tasks)
+			if res != tc.output {
+				t.Errorf("\n MinProcessingTime(%v, %v) gives: \n %v \n expected: \n %v", tc.processorTime, tc.tasks, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestNumOfGoodPairs(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  []int
+		output int
+	}{
+		{name: "ordinary test", input: []int{1, 2, 3, 1, 1, 3}, output: 4},
+		{name: "no pairs", input: []int{2, 3, 4, 1, 5}, output: 0},
+		{name: "all same", input: []int{1, 1, 1, 1}, output: 6},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.NumIdenticalPairs(tc.input)
+			if res != tc.output {
+				t.Errorf("\n NumOfGoodPairs(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestDiffWaysToAddParans(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  string
+		output []int
+	}{
+		{name: "ordinary test", input: "2-1-1", output: []int{0, 2}},
+		{name: "ordinary test 2", input: "2*3-4*5", output: []int{-34, -14, -10, -10, 10}},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.DiffWaysToCompute(tc.input)
+			less := func(a, b int) bool { return a < b }
+			equalIgnoreOrder := cmp.Diff(res, tc.output, cmpopts.SortSlices(less)) == ""
+			if !equalIgnoreOrder {
+				t.Errorf("\n DiffWaysToAddParans(%s) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
 			}
 		})
 	}
