@@ -216,3 +216,134 @@ func TestEqualSubstringWithinBudget(t *testing.T) {
 		})
 	}
 }
+
+func TestLongestPalindromicSubstring(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  string
+		output string
+	}{
+		{name: "Ordinary test 1", input: "babad", output: "aba"},
+		{name: "Ordinary test 2", input: "cbbd", output: "bb"},
+		{name: "All diff letters test", input: "abcdef", output: "a"},
+		{name: "All identical letters test", input: "aaaaaaa", output: "aaaaaaa"},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(t.Name(), func(t *testing.T) {
+			t.Parallel()
+			res := solutions.LongestPalindromicSubstring(tc.input)
+			if res != tc.output {
+				t.Errorf("\n LongestPalindromicSubstring(%s) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestMinOpsToReduceToZero(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  int
+		output int
+	}{
+		{name: "Ordinary test 1", input: 39, output: 3},
+		{name: "Ordinary test 2", input: 54, output: 3},
+		{name: "Big input test", input: 124532, output: 7},
+		{name: "Huge input test", input: 3414531877481923, output: 17},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(t.Name(), func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MinOpsToReduceToZero(tc.input)
+			if res != tc.output {
+				t.Errorf("\n MinOpsToReduceToZero(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestMaximalSquare(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  [][]byte
+		output int
+	}{
+		{
+			name:   "Ordinary test",
+			input:  [][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}},
+			output: 4,
+		},
+		{
+			name:   "Small test",
+			input:  [][]byte{{'0', '1'}, {'1', '0'}},
+			output: 1,
+		},
+		{
+			name:   "Matrix with len of 1",
+			input:  [][]byte{{'0'}},
+			output: 0,
+		},
+		{
+			name:   "All zeros",
+			input:  [][]byte{{'0', '0', '0'}, {'0', '0', '0'}, {'0', '0', '0'}},
+			output: 0,
+		},
+		{
+			name:   "All ones",
+			input:  [][]byte{{'1', '1', '1'}, {'1', '1', '1'}, {'1', '1', '1'}},
+			output: 9,
+		},
+		{
+			name:   "Large matrix: 200x200, all ones",
+			input:  generateMatrix(200, 200, '1'),
+			output: 40000,
+		},
+		{
+			name:   "Large matrix: 300x300, alternating pattern",
+			input:  generateAlternatingMatrix(300, 300),
+			output: 1,
+		},
+		{
+			name:   "Large matrix: 250x250, border pattern",
+			input:  generateBorderMatrix(250, 250),
+			output: 1,
+		},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MaximalSquare(tc.input)
+			if res != tc.output {
+				t.Errorf("\n MaximalSquare(%s) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestMinFallingPathSum(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  [][]int
+		output int
+	}{
+		{name: "matrix 3x3", input: [][]int{{2, 1, 3}, {6, 5, 4}, {7, 8, 9}}, output: 13},
+		{name: "matrix 2x2", input: [][]int{{-19, 57}, {-40, -5}}, output: -59},
+		{name: "matrix 2x1", input: [][]int{{-19, 57}}, output: -19},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MinFallingPathSum(tc.input)
+			if res != tc.output {
+				t.Errorf("\n MinFallingPathSum(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
