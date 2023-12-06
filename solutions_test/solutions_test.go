@@ -580,3 +580,34 @@ func TestSelfCrossing(t *testing.T) {
 		})
 	}
 }
+
+func TestReverseOddLevels(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name  string
+		input *solutions.TreeNode
+		// output *solutions.TreeNode
+	}{
+		{name: "ordinary tree", input: &solutions.TreeNode{
+			Val: 2,
+			Left: &solutions.TreeNode{
+				Val:   3,
+				Left:  &solutions.TreeNode{Val: 8},
+				Right: &solutions.TreeNode{Val: 13}},
+			Right: &solutions.TreeNode{
+				Val:   5,
+				Left:  &solutions.TreeNode{Val: 21},
+				Right: &solutions.TreeNode{Val: 34}}}},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			solutions.ReverseOddLevels(tc.input)
+			// fmt.Println(*res)
+			// if res != tc.output {
+			// 	t.Errorf("\n IsSelfCrossing(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			// }
+		})
+	}
+}
