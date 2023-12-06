@@ -532,3 +532,51 @@ func TestDiffWaysToAddParans(t *testing.T) {
 		})
 	}
 }
+
+func TestIncreasingTripletSubsequence(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  []int
+		output bool
+	}{
+		{name: "all incresing", input: []int{1, 2, 3, 4, 5}, output: true},
+		{name: "all decreasing", input: []int{5, 4, 3, 2, 1}, output: false},
+		{name: "arbitrary", input: []int{2, 1, 5, 0, 4, 6}, output: true},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.IncreasingTriplet(tc.input)
+			if res != tc.output {
+				t.Errorf("\n IncreasingTripletSubsequence(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestSelfCrossing(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  []int
+		output bool
+	}{
+		{name: "ordinary self crossing", input: []int{2, 1, 1, 2}, output: true},
+		{name: "no crossing", input: []int{1, 2, 3, 4}, output: false},
+		{name: "edge crossing", input: []int{1, 1, 1, 2, 1}, output: true},
+		// {name: "end = start", input: []int{1, 1, 2, 1, 1}, output: true},
+		// {name: "test 9", input: []int{3, 3, 4, 2, 2}, output: false},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.IsSelfCrossing(tc.input)
+			if res != tc.output {
+				t.Errorf("\n IsSelfCrossing(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
