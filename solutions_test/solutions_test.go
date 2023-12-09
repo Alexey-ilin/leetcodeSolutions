@@ -611,3 +611,73 @@ func TestReverseOddLevels(t *testing.T) {
 		})
 	}
 }
+
+func TestScoreAfterFlipping(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  [][]int
+		output int
+	}{
+		{name: "ordinary self crossing", input: [][]int{{0, 0, 1, 1}, {1, 0, 1, 0}, {1, 1, 0, 0}}, output: 39},
+		{name: "simple test", input: [][]int{{0}}, output: 1},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.MatrixScore(tc.input)
+			if res != tc.output {
+				t.Errorf("\n ScoreAfterFlipping(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestExistWord(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		board  [][]byte
+		word   string
+		output bool
+	}{
+		{name: "board1", board: [][]byte{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}, word: "ABCCED", output: true},
+		{name: "board2", board: [][]byte{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}, word: "SEE", output: true},
+		{name: "board2", board: [][]byte{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}, word: "ABCB", output: false},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.Exist(tc.board, tc.word)
+			if res != tc.output {
+				t.Errorf("\n Exist(%v, %s) gives: \n %v \n expected: \n %v", tc.board, tc.word, res, tc.output)
+			}
+		})
+	}
+}
+
+func TestPivotIndex(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name   string
+		input  []int
+		output int
+	}{
+		{name: "A", input: []int{1, 7, 3, 6, 5, 6}, output: 3},
+		{name: "B", input: []int{1, 2, 3}, output: -1},
+		{name: "C", input: []int{2, 1, -1}, output: 0},
+		{name: "D", input: []int{-1, -1, 0, 1, 1, 0}, output: 5},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			res := solutions.PivotIndex(tc.input)
+			if res != tc.output {
+				t.Errorf("\n PivotIndex(%v) gives: \n %v \n expected: \n %v", tc.input, res, tc.output)
+			}
+		})
+	}
+}
